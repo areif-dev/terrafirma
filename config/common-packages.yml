@@ -1,0 +1,42 @@
+type: rpm-ostree
+install:
+  - alacritty
+  - blueman
+  - bluez
+  - bluez-tools
+  - dbus-daemon
+  - dbus-tools
+  - dunst
+  - gnome-keyring
+  - google-noto-emoji-fonts
+  - grim
+  - grimshot
+  - light
+  - lxpolkit
+  - mpv
+  - neovim
+  - NetworkManager
+  - network-manager-applet
+  - papirus-icon-theme
+  - pavucontrol
+  - pipewire
+  - playerctl
+  - polkit
+  - rofi-wayland
+  - sddm
+  - sddm-themes
+  - swayidle
+  - swaylock
+  - thunar
+  - thunar-archive-plugin
+  - thunar-volman
+  - wl-clipboard
+  - wlr-randr
+  - wireplumber
+  - xdg-user-dirs
+  - xorg-x11-server-Xwayland
+
+remove:
+  - just
+  - openrgb-udev-rules 
+  - vim
