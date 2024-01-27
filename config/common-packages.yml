@@ -11,7 +11,6 @@ install:
   - google-noto-emoji-fonts
   - grim
   - grimshot
-  - just
   - lxpolkit
   - mpv
   - neovim
@@ -37,6 +36,5 @@ install:
   - xorg-x11-server-Xwayland
 
 remove:
-  - just
   - openrgb-udev-rules 
   - vim
