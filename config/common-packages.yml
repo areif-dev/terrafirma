@@ -11,6 +11,7 @@ install:
   - google-noto-emoji-fonts
   - grim
   - grimshot
+  - just
   - lxpolkit
   - mpv
   - neovim
