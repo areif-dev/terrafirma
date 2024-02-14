@@ -1,5 +1,5 @@
 # image will be published to ghcr.io/<user>/<name>
-name: terrafirma
+name: terrafirma-hyprland
 # description will be included in the image's metadata
 description: An immutable image featuring the Hyprland Wayland compositor based on uBlue/startingpoint
 
