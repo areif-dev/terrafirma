@@ -1,6 +1,8 @@
 type: rpm-ostree
 install:
   - alacritty
+  - blueman
+  - bluez
   - bluez-tools
   - dbus-daemon
   - dbus-tools
