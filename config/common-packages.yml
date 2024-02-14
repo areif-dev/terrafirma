@@ -1,8 +1,6 @@
 type: rpm-ostree
 install:
   - alacritty
-  - blueman
-  - bluez
   - bluez-tools
   - dbus-daemon
   - dbus-tools
@@ -22,8 +20,6 @@ install:
   - playerctl
   - polkit
   - rofi-wayland
-  - sddm
-  - sddm-themes
   - swayidle
   - swaylock
   - thunar
@@ -37,3 +33,5 @@ install:
 
 remove:
   - openrgb-udev-rules 
+  - blueman
+  - bluez
