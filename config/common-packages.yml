@@ -33,5 +33,3 @@ install:
 
 remove:
   - openrgb-udev-rules 
-  - blueman
-  - bluez
