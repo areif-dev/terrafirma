@@ -21,6 +21,7 @@ install:
   - pipewire
   - playerctl
   - polkit
+  - ranger
   - rofi-wayland
   - swayidle
   - swaylock
@@ -32,6 +33,7 @@ install:
   - wireplumber
   - xdg-user-dirs
   - xorg-x11-server-Xwayland
+  - zsh
 
 remove:
   - openrgb-udev-rules 
