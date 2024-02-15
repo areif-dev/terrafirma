@@ -5,6 +5,7 @@ install:
   - blueman
   - bluez
   - bluez-tools
+  - cascadia-code-fonts
   - dbus-daemon
   - dbus-tools
   - dunst
