@@ -36,6 +36,7 @@ install:
   - xdg-user-dirs
   - xorg-x11-server-Xwayland
   - zsh
+  - zsh-autosuggestions
 
 remove:
   - openrgb-udev-rules 
