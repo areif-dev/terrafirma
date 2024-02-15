@@ -17,6 +17,7 @@ install:
   - mpv
   - neovim
   - NetworkManager
+  - NetworkManager-tui
   - network-manager-applet
   - papirus-icon-theme
   - pavucontrol
