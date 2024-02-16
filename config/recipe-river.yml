@@ -20,6 +20,7 @@ modules:
   - type: rpm-ostree
     install:
       - river
+      - swaybg
       - waybar
       - xdg-desktop-portal-wlr
 
