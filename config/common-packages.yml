@@ -18,7 +18,6 @@ install:
   - neovim
   - NetworkManager
   - NetworkManager-tui
-  - network-manager-applet
   - papirus-icon-theme
   - pavucontrol
   - pipewire
@@ -26,6 +25,7 @@ install:
   - polkit
   - ranger
   - rofi-wayland
+  - swaybg
   - swayidle
   - swaylock
   - thunar
