@@ -31,6 +31,7 @@ install:
   - thunar
   - thunar-archive-plugin
   - thunar-volman
+  - vlc
   - wl-clipboard
   - wlr-randr
   - wireplumber
