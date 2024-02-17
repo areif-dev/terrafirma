@@ -1,4 +1,7 @@
 type: rpm-ostree
+repos: 
+  - https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+
 install:
   - alacritty
   - ansible
@@ -28,6 +31,7 @@ install:
   - swaybg
   - swayidle
   - swaylock
+  - tailscale
   - thunar
   - thunar-archive-plugin
   - thunar-volman
@@ -42,3 +46,4 @@ install:
 
 remove:
   - openrgb-udev-rules 
+
