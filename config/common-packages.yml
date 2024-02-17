@@ -24,6 +24,7 @@ install:
   - playerctl
   - polkit
   - ranger
+  - ripgrep
   - rofi-wayland
   - swaybg
   - swayidle
