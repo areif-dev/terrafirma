@@ -2,7 +2,6 @@ type: rpm-ostree
 install:
   - alacritty
   - ansible
-  - blueman
   - bluez
   - bluez-tools
   - cascadia-code-fonts
