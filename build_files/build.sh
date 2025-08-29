@@ -18,16 +18,12 @@ curl -Lo /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fedor
 source /ctx/packages.sh
 dnf5 install -y "${all_packages[@]}"
 
-# Install custom systemd service files
-cp -r /ctx/systemd/* /etc/systemd/system/
-
 # Enable/Disable services 
 systemctl enable libvirtd 
 systemctl enable tailscaled 
 systemctl disable avahi-daemon.socket
 systemctl disable avahi-daemon.service
 systemctl disable zincati.timer
-systemctl enable bootc-update.timer
 
 # Remove unwanted software 
 dnf5 remove -y zincati  # Replace with lighter custom solution
