@@ -68,6 +68,7 @@ export apps=(
     pavucontrol
     playerctl
     ranger
+    remmina
     ripgrep
     steam
     thunar
