@@ -19,7 +19,6 @@ source /ctx/packages.sh
 dnf5 install -y "${all_packages[@]}"
 
 # Enable/Disable services 
-systemctl enable libvirtd 
 systemctl enable tailscaled 
 systemctl disable avahi-daemon.socket
 systemctl disable avahi-daemon.service

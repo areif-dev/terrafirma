@@ -1,11 +1,7 @@
 #!/bin/bash
 
 export system=(
-    '@development-tools' 
-    bluez
-    bluez-tools
-    cryptsetup
-    cups
+    '@cinnamon-desktop'
     dbus
     dbus-daemon
     dbus-tools
@@ -16,7 +12,6 @@ export system=(
     gnome-keyring
     gvfs-mtp
     grim
-    hyprland
     jmtpfs
     lxpolkit
     man-db
@@ -29,52 +24,25 @@ export system=(
     podman
     podman-compose
     polkit
-    rofi-wayland
-    rustup 
-    swaybg
-    swayidle
-    swaylock
-    syncthing
-    system-config-printer
     tailscale
-    waybar
-    wl-clipboard
-    wlr-randr
     wireplumber
-    xdg-desktop-portal-wlr
-    xdg-desktop-portal-hyprland
     xdg-user-dirs
-    xorg-x11-server-Xwayland
     zsh
     zsh-autosuggestions
 )
 export apps=(
-    alacritty
     bc
-    discord
     distrobox
     ffmpeg
     firefox
-    gamemode
-    gimp
-    hledger
-    hledger-web
     htop
-    keepassxc
-    libreoffice
     neovim
     nvtop
     openvpn
     pavucontrol
     playerctl
     ranger
-    remmina
     ripgrep
-    steam
-    thunar
-    thunar-archive-plugin
-    thunar-volman
-    thunderbird
     unzip
     vlc
     zip
@@ -83,15 +51,6 @@ export fonts=(
     cascadia-code-fonts
     fontawesome-fonts
     google-noto-emoji-fonts
-)
-export virtualization=(
-    libvirt
-    libvirt-daemon-config-network
-    libvirt-daemon-kvm
-    qemu-kvm
-    virt-manager
-    libguestfs-tools
-    python3-libguestfs
 )
 export wifi=(
     NetworkManager
