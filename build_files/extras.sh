@@ -18,4 +18,11 @@ else
     exit 1
 fi
 
+# Install Rustdesk 
+echo "Attempting to install Rustdesk"
+RUSTDESK_VERSION=$(curl -s "https://api.github.com/repos/rustdesk/rustdesk/releases/latest" | jq -r '.tag_name' | sed 's/v//')
+curl -L -o "/tmp/extras/rustdesk-${RUSTDESK_VERSION}.x86_64.rpm" "https://github.com/rustdesk/rustdesk/releases/download/v${RUSTDESK_VERSION}/rustdesk-${RUSTDESK_VERSION}.x86_64.rpm"
+curl -L -o "/tmp/extras/rustdesk-${RUSTDESK_VERSION}.x86_64.rpm.sha256" "https://github.com/rustdesk/rustdesk/releases/download/v${RUSTDESK_VERSION}/rustdesk-${RUSTDESK_VERSION}.x86_64.rpm.sha256"
+dnf install "/tmp/extras/rustdesk-${RUSTDESK_VERSION}.x86_64.rpm"
+
 rm -rf /tmp/extras
