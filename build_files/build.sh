@@ -13,6 +13,7 @@ dnf5 install -y \
 https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
 https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && \
 curl -Lo /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo 
+curl -Lo /etc/yum.repos.d/hyprland.repo https://copr.fedorainfracloud.org/coprs/solopasha/hyprland/repo/fedora-43/solopasha-hyprland-fedora-43.repo
 
 # Install packages
 source /ctx/packages.sh
