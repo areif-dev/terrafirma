@@ -94,7 +94,7 @@ jobs:
           username: ${{ secrets.BOT_USERNAME }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: sigstore/cosign-installer@v3.8.0
+      - uses: sigstore/cosign-installer@v4.0.0
 
       - name: Sign container image
         run: |
