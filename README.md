@@ -19,7 +19,7 @@ An opinionated image based on Fedora CoreOS featuring the Hyprland compositor.
 ## Rebasing 
 
 ```bash
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/areif-dev/fedora-river-atomic/fedora-river-atomic:latest
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/areif-dev/terrafirma/terrafirma:latest
 ```
 
 # WARNING
