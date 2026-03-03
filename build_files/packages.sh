@@ -71,6 +71,7 @@ export apps=(
     remmina
     ripgrep
     steam
+    torbrowser-launcher
     thunar
     thunar-archive-plugin
     thunar-volman
