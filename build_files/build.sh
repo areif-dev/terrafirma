@@ -17,7 +17,7 @@ curl -Lo /etc/yum.repos.d/hyprland.repo https://copr.fedorainfracloud.org/coprs/
 
 # Install packages
 source /ctx/packages.sh
-dnf5 install -y "${all_packages[@]}"
+dnf5 install -y --exclude=nfs-utils "${all_packages[@]}"
 
 # Enable/Disable services 
 systemctl enable libvirtd 
