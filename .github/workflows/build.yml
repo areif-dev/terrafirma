@@ -29,12 +29,16 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+env:
+  platforms: 'linux/amd64'
+  registry: 'ghcr.io/areif-dev/terrafirma'
+
 jobs:
-  build-push-images:
+  setup:
     runs-on: ubuntu-latest
-    env:
-      platforms: 'linux/amd64'
-      registry: 'ghcr.io/areif-dev/terrafirma'
+    outputs:
+      base_version: ${{ steps.base.outputs.version }}
+      tags: ${{ steps.tags.outputs.alias_tags }}
     steps:
       - name: Fetch Fedora CoreOS metadata
         id: fetch-metadata
@@ -44,34 +48,31 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Set base version
+        id: base
         run: |
           RELEASE="${{ fromJson(steps.fetch-metadata.outputs.metadata).architectures.x86_64.artifacts.metal.release }}"
           MAJOR_VERSION=$(echo $RELEASE | cut -d. -f1)
-          echo "base_version=$MAJOR_VERSION" >> $GITHUB_ENV
+          echo "version=$MAJOR_VERSION" >> $GITHUB_OUTPUT
 
+      - name: Generate tags
+        id: tags
+        run: |
+          TIMESTAMP="$(date +%Y%m%d)"
+          TAGS="${TIMESTAMP} latest ${{ steps.base.outputs.version }}"
+          echo "alias_tags=$TAGS" >> $GITHUB_OUTPUT
+
+  build:
+    needs: setup
+    runs-on: ubuntu-latest
+    outputs:
+      digest: ${{ steps.push.outputs.digest }}
+    steps:
       - name: Free disk space 
         run: |
           sudo rm -rf /opt/hostedtoolcache 
           sudo rm -rf /usr/local/lib/android 
           docker system prune -af 
           df -h
-
-      - name: Generate tags
-        id: generate-tags
-        shell: bash
-        run: |
-          # Generate a timestamp for creating an image version history
-          TIMESTAMP="$(date +%Y%m%d)"
-          BUILD_TAGS=()
-          BUILD_TAGS+=("${TIMESTAMP}")
-          BUILD_TAGS+=("latest")
-          BUILD_TAGS+=("${{ env.base_version }}")
-          alias_tags=("${BUILD_TAGS[@]}")
-          echo "Generated the following build tags: "
-          for TAG in "${BUILD_TAGS[@]}"; do
-              echo "${TAG}"
-          done
-          echo "alias_tags=${alias_tags[*]}" >> $GITHUB_OUTPUT
 
       - name: Checkout
         uses: actions/checkout@v6
@@ -82,8 +83,7 @@ jobs:
           platforms: ${{ env.platforms }}
           context: ./
           image: terrafirma
-          tags: | 
-            ${{ steps.generate-tags.outputs.alias_tags }}
+          tags: ${{ needs.setup.outputs.tags }}
           containerfiles: ./Containerfile
           layers: false
           oci: true
@@ -96,9 +96,12 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           image: terrafirma 
           registry: ${{ env.registry }}
-          tags: |
-            ${{ steps.generate-tags.outputs.alias_tags }}
+          tags: ${{ needs.setup.outputs.tags }}
 
+  sign:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Login to Container Registry
         uses: redhat-actions/podman-login@v1
         with:
@@ -110,8 +113,7 @@ jobs:
 
       - name: Sign container image
         run: |
-          cosign sign -y --recursive --key env://SIGNING_SECRET ${{ env.registry }}/terrafirma@${{ steps.push.outputs.digest }}
+          cosign sign -y --recursive --key env://SIGNING_SECRET ${{ env.registry }}/terrafirma@${{ needs.build.outputs.digest }}
         env:
           COSIGN_EXPERIMENTAL: false
           SIGNING_SECRET: ${{ secrets.SIGNING_SECRET }}
-
