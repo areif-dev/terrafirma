@@ -39,8 +39,9 @@ jobs:
       - name: Fetch Fedora CoreOS metadata
         id: fetch-metadata
         run: |
-          metadata=$(curl -s https://builds.coreos.fedoraproject.org/streams/testing.json)
-          echo "metadata=$metadata" >> $GITHUB_OUTPUT
+          echo "metadata<<EOF" >> $GITHUB_OUTPUT
+          curl -s https://builds.coreos.fedoraproject.org/streams/testing.json >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Set base version
         run: |
