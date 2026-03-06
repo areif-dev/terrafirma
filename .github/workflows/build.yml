@@ -35,8 +35,19 @@ jobs:
     env:
       platforms: 'linux/amd64'
       registry: 'ghcr.io/areif-dev/terrafirma'
-      base_version: 42
     steps:
+      - name: Fetch Fedora CoreOS metadata
+        id: fetch-metadata
+        run: |
+          metadata=$(curl -s https://builds.coreos.fedoraproject.org/streams/testing.json)
+          echo "metadata=$metadata" >> $GITHUB_OUTPUT
+
+      - name: Set base version
+        run: |
+          RELEASE="${{ fromJson(steps.fetch-metadata.outputs.metadata).architectures.x86_64.artifacts.metal.release }}"
+          MAJOR_VERSION=$(echo $RELEASE | cut -d. -f1)
+          echo "base_version=$MAJOR_VERSION" >> $GITHUB_ENV
+
       - name: Free disk space 
         run: |
           sudo rm -rf /opt/hostedtoolcache 
