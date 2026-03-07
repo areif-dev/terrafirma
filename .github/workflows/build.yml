@@ -39,7 +39,17 @@ jobs:
     outputs:
       base_version: ${{ steps.base.outputs.version }}
       tags: ${{ steps.tags.outputs.alias_tags }}
+      images: ${{ steps.images.outputs.list }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Get images
+        id: images
+        run: |
+          IMAGES=$(ls images | jq -R -s -c 'split("\n")[:-1]')
+          echo "list=$IMAGES" >> $GITHUB_OUTPUT
+
       - name: Fetch Fedora CoreOS metadata
         id: fetch-metadata
         run: |
@@ -64,8 +74,10 @@ jobs:
   build:
     needs: setup
     runs-on: ubuntu-latest
-    outputs:
-      digest: ${{ steps.push.outputs.digest }}
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ${{ fromJson(needs.setup.outputs.images) }}
     steps:
       - name: Free disk space 
         run: |
@@ -81,10 +93,10 @@ jobs:
         uses: redhat-actions/buildah-build@v2
         with:
           platforms: ${{ env.platforms }}
-          context: ./
-          image: terrafirma
+          context: ./images/${{ matrix.image }}
+          image: ${{ matrix.image }}
           tags: ${{ needs.setup.outputs.tags }}
-          containerfiles: ./Containerfile
+          containerfiles: ./images/${{ matrix.image }}/Containerfile
           layers: false
           oci: true
 
@@ -94,14 +106,10 @@ jobs:
         with:
           username: ${{ secrets.BOT_USERNAME }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          image: terrafirma 
+          image: ${{ matrix.image }}
           registry: ${{ env.registry }}
           tags: ${{ needs.setup.outputs.tags }}
 
-  sign:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: Login to Container Registry
         uses: redhat-actions/podman-login@v1
         with:
@@ -113,7 +121,7 @@ jobs:
 
       - name: Sign container image
         run: |
-          cosign sign -y --recursive --key env://SIGNING_SECRET ${{ env.registry }}/terrafirma@${{ needs.build.outputs.digest }}
+          cosign sign -y --recursive --key env://SIGNING_SECRET ${{ env.registry }}/${{ matrix.image }}@${{ steps.push.outputs.digest }}
         env:
           COSIGN_EXPERIMENTAL: false
           SIGNING_SECRET: ${{ secrets.SIGNING_SECRET }}
