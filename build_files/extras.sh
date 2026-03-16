@@ -33,4 +33,8 @@ cp /tmp/extras/nwg-look/stuff/nwg-look.desktop /usr/share/applications/
 cp /tmp/extras/nwg-look/stuff/nwg-look.svg /usr/share/pixmaps/
 cp /tmp/extras/nwg-look/nwg-look /usr/bin
 
+# Install Gemini CLI 
+echo "Attempting to install Gemini CLI"
+npm install -g @google/gemini-cli
+
 rm -rf /tmp/extras
