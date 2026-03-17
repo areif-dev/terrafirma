@@ -63,6 +63,7 @@ export apps=(
     keepassxc
     libreoffice
     neovim
+    nodejs
     nvtop
     openvpn
     pavucontrol
