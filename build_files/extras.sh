@@ -35,6 +35,8 @@ cp /tmp/extras/nwg-look/nwg-look /usr/bin
 
 # Install Gemini CLI 
 echo "Attempting to install Gemini CLI"
-npm install -g @google/gemini-cli
+npm install -g --prefix /usr @google/gemini-cli
+npm cache clean --force
+rm -rf /root/.npm
 
 rm -rf /tmp/extras
