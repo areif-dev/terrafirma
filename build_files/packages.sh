@@ -37,6 +37,7 @@ export system=(
     syncthing
     system-config-printer
     tailscale
+    usbutils
     waybar
     wl-clipboard
     wlr-randr
