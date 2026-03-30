@@ -10,6 +10,8 @@ export system=(
     dbus-daemon
     dbus-tools
     dunst
+    fprintd
+    fprintd-pam
     fwupd
     flatpak
     git
